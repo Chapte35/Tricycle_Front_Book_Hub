@@ -1,0 +1,16 @@
+form {
+  max-width: 300px;
+  width: 220px;
+  margin: 3rem auto auto;
+}
+
+fieldset{
+  border: 1px solid #7D4FFE;
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+
+input {
+  -webkit-appearance: none;
+}
