@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="container mt-5">
+
+  <div class="card shadow-sm p-4 mx-auto" style="max-width: 450px;">
+
+    <h3 class="text-center mb-4">Se connecter</h3>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email"
+             formControlName="email" placeholder="email@example.com">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" class="form-control" id="password"
+             formControlName="password" placeholder="••••••••">
+    </div>
+
+    <small class="text-danger d-block mb-3" *ngIf="form.invalid && form.touched">
+      Veuillez corriger le formulaire.
+    </small>
+
+    <button type="submit" class="btn btn-primary btn-block mt-3">
+      Se connecter
+    </button>
+
+  </div>
+
+</form>
