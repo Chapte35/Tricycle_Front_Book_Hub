@@ -1,0 +1,22 @@
+.hero {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 80px;
+}
+
+.feature {
+  max-width: 200px;
+  text-align: center;
+}
