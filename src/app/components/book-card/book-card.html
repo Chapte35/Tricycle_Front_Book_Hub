@@ -1,0 +1,10 @@
+<mat-card>
+    <img mat-card-image [src]="book.cover" [alt]="book.title" />
+    <mat-card-content>
+      <mat-card-title>{{ book.title }}</mat-card-title>
+      <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+      <mat-chip-set>
+        <mat-chip [color]="badgeColor" highlighted>{{ badgeLabel }}</mat-chip>
+      </mat-chip-set>
+    </mat-card-content>
+  </mat-card>

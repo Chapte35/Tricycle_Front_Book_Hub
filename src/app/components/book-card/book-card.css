@@ -1,0 +1,18 @@
+mat-card {
+    height: 100%;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+  }
+  
+  mat-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  img[mat-card-image] {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  mat-chip-set {
+    margin-top: 8px;
+  }
