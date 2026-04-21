@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthFormComponent } from '../../components/auth-form/auth-form';
+import { RegisterFormComponent } from '../../components/forms/register-form/register-form';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [AuthFormComponent],
+  imports: [RegisterFormComponent],
   templateUrl: './register.html',
 })
 export class RegisterComponent {
@@ -14,7 +14,6 @@ export class RegisterComponent {
   onRegister(data: any) {
     console.log('DATA:', data);
 
-    // ici plus tard → appel API
-    this.router.navigate(['/login']);
+    this.router.navigate(['/register']);
   }
 }
