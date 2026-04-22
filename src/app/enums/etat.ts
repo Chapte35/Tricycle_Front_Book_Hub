@@ -1,6 +1,7 @@
 export enum Etat {
-    DISPO = 'DISPO',
+    EMPRUNTABLE = 'EMPRUNTABLE',
     RESERVE = 'RESERVE',
     EMPRUNTE = 'EMPRUNTE',
-    RETARD = 'RETARD'
+    RETARD = 'RETARD',
+    INDISPONIBLE = 'INDISPONIBLE'
   }

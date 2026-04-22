@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card (click)="navigateToDetail()" style="cursor: pointer">
     <img mat-card-image [src]="book.cover" [alt]="book.title" />
     <mat-card-content>
       <mat-card-title>{{ book.title }}</mat-card-title>
