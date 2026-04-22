@@ -6,7 +6,7 @@ import { Etat } from '../../enums/etat';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, BookList],
+  imports: [BookList],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -21,6 +21,17 @@ export class Home {
       cover: 'https://m.media-amazon.com/images/I/41xShlnTZTL.jpg',
       isAvailable: true,
       state: Etat.DISPO,
+      category: { id: 1, libelle: 'Informatique' }
+    },
+    {
+      id: 2,
+      title: 'Berk',
+      author: 'Deubz C. Crotez',
+      description: '',
+      ISBN: '9780132456884',
+      cover: 'https://m.media-amazon.com/images/I/41xShlnTZTL.jpg',
+      isAvailable: true,
+      state: Etat.EMPRUNTE,
       category: { id: 1, libelle: 'Informatique' }
     }
   ];
