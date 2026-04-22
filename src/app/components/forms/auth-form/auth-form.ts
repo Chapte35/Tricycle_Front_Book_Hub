@@ -1,30 +1,58 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Button } from '../../button/button';
+import { Component, EventEmitter, Input, Output, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Button],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   templateUrl: './auth-form.html',
 })
-export class AuthFormComponent {
+export class AuthFormComponent implements OnInit {
+
   private fb = inject(FormBuilder);
 
   @Input() mode: 'register' | 'login' = 'register';
   @Output() formSubmit = new EventEmitter<any>();
 
-  form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-  });
+  form!: FormGroup;
+
+  ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm() {
+    if (this.mode === 'register') {
+      this.form = this.fb.group({
+        firstName: ['', [Validators.required, Validators.minLength(2)]],
+        lastName: ['', [Validators.required, Validators.minLength(2)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        phone: ['']
+      });
+    } else {
+      this.form = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+      });
+    }
+  }
 
   submit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     this.formSubmit.emit(this.form.value);
   }
-}
-
-export class AuthForm {
 }
