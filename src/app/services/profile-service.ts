@@ -11,6 +11,11 @@ export interface UpdateProfileRequest {
   password?: string;
 }
 
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  newPassword: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
