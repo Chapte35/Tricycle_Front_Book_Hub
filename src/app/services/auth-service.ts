@@ -18,13 +18,11 @@ export interface LoginRequest {
 
 export interface AuthResponse {
   token: string;
-  user: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: string;
-  };
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
 }
 
 @Injectable({
@@ -41,10 +39,6 @@ export class AuthService {
     return this.http.post<AuthResponse>(API_ROUTES.auth.login, data);
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-  }
-
   saveToken(token: string): void {
     localStorage.setItem('token', token);
   }
@@ -55,5 +49,24 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  saveUser(response: AuthResponse): void {
+    const { id, firstName, lastName, email, role } = response;
+    localStorage.setItem('user', JSON.stringify({ id, firstName, lastName, email, role }));
+  }
+  
+  getUser(): Omit<AuthResponse, 'token'> | null {
+    const u = localStorage.getItem('user');
+    return u ? JSON.parse(u) : null;
+  }
+  
+  isAdmin(): boolean {
+    return this.getUser()?.role === 'ADMIN';
+  }
+  
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 }

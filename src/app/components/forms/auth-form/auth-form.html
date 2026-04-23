@@ -1,8 +1,23 @@
 <form [formGroup]="form" (ngSubmit)="submit()" class="container mt-5">
-
   <div class="card shadow-sm p-4 mx-auto" style="max-width: 450px;">
 
-    <h3 class="text-center mb-4">Se connecter</h3>
+    <h3 class="text-center mb-4">
+      {{ mode === 'register' ? "Inscription" : "Connexion" }}
+    </h3>
+
+    @if (mode === 'register') {
+      <div class="form-group">
+        <label for="firstName">Prénom</label>
+        <input type="text" class="form-control" id="firstName"
+               formControlName="firstName" placeholder="Votre prénom">
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Nom</label>
+        <input type="text" class="form-control" id="lastName"
+               formControlName="lastName" placeholder="Votre nom">
+      </div>
+    }
 
     <div class="form-group">
       <label for="email">Email</label>
@@ -16,14 +31,32 @@
              formControlName="password" placeholder="••••••••">
     </div>
 
-    <small class="text-danger d-block mb-3" *ngIf="form.invalid && form.touched">
+    @if (mode === 'register') {
+      <div class="form-group">
+        <label for="confirmPassword">Confirmer le mot de passe</label>
+        <input type="password" class="form-control" id="confirmPassword"
+               formControlName="confirmPassword" placeholder="••••••••">
+        <small class="text-danger"
+               *ngIf="form.get('confirmPassword')?.hasError('mismatch')">
+          Les mots de passe ne correspondent pas.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input type="tel" class="form-control" id="phone"
+               formControlName="phone" placeholder="06 00 00 00 00">
+      </div>
+    }
+
+    <small class="text-danger d-block mb-3"
+           *ngIf="form.invalid && form.touched">
       Veuillez corriger le formulaire.
     </small>
 
     <button type="submit" class="btn btn-primary btn-block mt-3">
-      Se connecter
+      {{ mode === 'register' ? "S'inscrire" : "Se connecter" }}
     </button>
 
   </div>
-
 </form>
