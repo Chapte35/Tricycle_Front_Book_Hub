@@ -1,38 +1,82 @@
+<div class="my-loans container-fluid mt-3">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th (click)="sort('title')" role="button">
+            Titre
+            <i class="bi" [ngClass]="{
+              'bi-arrow-down-up': sortColumn !== 'title',
+              'bi-arrow-up': sortColumn === 'title' && sortDirection === 'asc',
+              'bi-arrow-down': sortColumn === 'title' && sortDirection === 'desc'
+            }"></i>
+          </th>
+          <th (click)="sort('author')" role="button">
+            Auteur
+            <i class="bi" [ngClass]="{
+              'bi-arrow-down-up': sortColumn !== 'author',
+              'bi-arrow-up': sortColumn === 'author' && sortDirection === 'asc',
+              'bi-arrow-down': sortColumn === 'author' && sortDirection === 'desc'
+            }"></i>
+          </th>
+          <th (click)="sort('loanDate')" role="button">
+            Date d'emprunt
+            <i class="bi" [ngClass]="{
+              'bi-arrow-down-up': sortColumn !== 'loanDate',
+              'bi-arrow-up': sortColumn === 'loanDate' && sortDirection === 'asc',
+              'bi-arrow-down': sortColumn === 'loanDate' && sortDirection === 'desc'
+            }"></i>
+          </th>
+          <th (click)="sort('returnDate')" role="button">
+            Date de retour
+            <i class="bi" [ngClass]="{
+              'bi-arrow-down-up': sortColumn !== 'returnDate',
+              'bi-arrow-up': sortColumn === 'returnDate' && sortDirection === 'asc',
+              'bi-arrow-down': sortColumn === 'returnDate' && sortDirection === 'desc'
+            }"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let loan of pagedLoans">
+          <td>{{ loan.books.title }}</td>
+          <td>{{ loan.books.author }}</td>
+          <td>{{ loan.loanDate }}</td>
+          <td>{{ loan.returnDate }}</td>
+        </tr>
+        <tr *ngIf="pagedLoans.length === 0">
+          <td colspan="4" class="text-center text-muted">Aucun emprunt trouvé.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="my-loans">
-    <div class="loan-table">
-        <table mat-table [dataSource]="dataSource">
-
-            <!-- COLONNE TITRE -->
-            <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef>Titre :</th>
-                <td mat-cell *matCellDef="let element">{{element.title}}</td>
-            </ng-container>
-
-            <!-- COLONNE NAME -->
-             <ng-container matColumnDef="author">
-                <th mat-header-cell *matHeaderCellDef>Auteur :</th>
-                <td mat-cell *matCellDef="let element">{{element.author}}</td>
-             </ng-container>
-
-            <!-- COLONNE DATE EMPRUNT -->
-             <ng-container matColumnDef="loanDate">
-                <th mat-header-cell *matHeaderCellDef>Date d'emprunt :</th>
-                <td mat-cell *matCellDef="let element">{{element.loanDate}}</td>
-             </ng-container>
-
-            <!-- COLONNE DATE RETOUR -->
-             <ng-container matColumnDef="returnDate">
-                <th mat-header-cell *matHeaderCellDef>Date de retour :</th>
-                <td mat-cell *matCellDef="let element">{{element.returnDate}}</td>
-             </ng-container>
-
-            <!-- HEADER et ROWS  -->
-             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons=""></mat-paginator>
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <label class="mb-0">Lignes par page :</label>
+      <select class="form-select form-select-sm w-auto" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+        <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
+      </select>
     </div>
+    <span class="text-muted small">
+      Page {{ currentPage }} sur {{ totalPages }}
+    </span>
+    <nav>
+      <ul class="pagination pagination-sm mb-0">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="currentPage = 1">«</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="currentPage = currentPage - 1">‹</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="currentPage = currentPage + 1">›</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="currentPage = totalPages">»</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
-

@@ -1,40 +1,76 @@
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Loan } from '../../interfaces/loan';
 import { LoanService } from '../../services/loan-service';
 
-
 @Component({
   selector: 'app-myloans',
-  imports: [CommonModule,
-    MatTableModule,
-    MatPaginator],
+  imports: [CommonModule, FormsModule],
   templateUrl: './my-loans.html',
   styleUrl: './my-loans.css',
 })
+export class Myloans implements OnInit {
 
-export class Myloans implements OnInit, AfterViewInit{
+  private loanService = inject(LoanService);
 
-    private loanService = inject(LoanService);
+  loans: Loan[] = [];
 
-  // mettre les ng-cintainer de mes colonnes ici
-  displayedColumns: string[] = ['title', 'author', 'loanDate', 'returnDate']
-  dataSource = new MatTableDataSource<Loan>();
+  // Pagination
+  pageSize: number = 5;
+  pageSizeOptions: number[] = [5, 10, 25];
+  currentPage: number = 1;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
+  // Tri
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
-  ngOnInit(): void {      
+  ngOnInit(): void {
     this.loanService.getAll().subscribe({
-      next: (data) => this.dataSource.data = data,
+      next: (data) => this.loans = data,
       error: (err) => console.error('Erreur chargement des emprunts', err)
     });
   }
 
-  ngAfterViewInit() {
-  this.dataSource.paginator = this.paginator;
-}
+  get totalPages(): number {
+    return Math.ceil(this.filteredLoans.length / this.pageSize);
+  }
 
+get filteredLoans(): Loan[] {   
+  if (!this.sortColumn) return this.loans;   
+  return [...this.loans].sort((a, b) => {     
+    const getVal = (loan: Loan): string => {       
+      if (this.sortColumn === 'title') 
+        return loan.books.title ?? '';       
+      if (this.sortColumn === 'author') 
+        return `${loan.user.firstName} ${loan.user.lastName}`;       
+      if (this.sortColumn === 'loanDate') 
+        return loan.loanDate?.toString() ?? '';       
+      if (this.sortColumn === 'returnDate') 
+        return loan.returnDate?.toString() ?? '';       
+      return '';     };     
+      return this.sortDirection === 'asc'       
+      ? getVal(a).localeCompare(getVal(b))       
+      : getVal(b).localeCompare(getVal(a));   
+    }); 
+  }
+
+  get pagedLoans(): Loan[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredLoans.slice(start, start + this.pageSize);
+  }
+
+  sort(column: string): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+    this.currentPage = 1;
+  }
+
+  onPageSizeChange(): void {
+    this.currentPage = 1;
+  }
 }
