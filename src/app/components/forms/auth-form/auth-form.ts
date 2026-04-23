@@ -36,13 +36,14 @@ export class AuthFormComponent implements OnInit {
         firstName: ['', [Validators.required, Validators.minLength(2)]],
         lastName: ['', [Validators.required, Validators.minLength(2)]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', Validators.required],
         phone: ['']
       });
     } else {
       this.form = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
       });
     }
   }
@@ -51,6 +52,14 @@ export class AuthFormComponent implements OnInit {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
+    }
+
+    if (this.mode === 'register') {
+      const { password, confirmPassword } = this.form.value;
+      if (password !== confirmPassword) {
+        this.form.get('confirmPassword')?.setErrors({ mismatch: true });
+        return;
+      }
     }
 
     this.formSubmit.emit(this.form.value);

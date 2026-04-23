@@ -10,3 +10,17 @@ export interface Loan {
   books: Book;
   user: User;
 }
+
+export interface LoanRequest {
+  bookId: number;
+  userId: number;
+}
+
+export interface LoanResponse {
+  id: number;
+  bookTitle: string;
+  userEmail: string;
+  loanDate: string;
+  returnDate: string;
+  status: Statut;
+}

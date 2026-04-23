@@ -1,0 +1,53 @@
+<div class="card shadow-sm p-4" style="max-width: 450px;">
+    <h5 class="mb-4">Créer un emprunt</h5>
+  
+    <form [formGroup]="form" (ngSubmit)="submit()">
+  
+      <!-- Recherche user -->
+      <div class="form-group position-relative">
+        <label>Utilisateur</label>
+        <input type="text"
+               class="form-control"
+               formControlName="userSearch"
+               placeholder="Rechercher par nom ou email...">
+  
+        <!-- Liste déroulante filtrée -->
+        @if (filteredUsers.length > 0 && form.get('userSearch')?.value && !form.get('userId')?.value) {
+          <ul class="list-group position-absolute w-100 shadow-sm"
+              style="z-index: 10; max-height: 200px; overflow-y: auto;">
+            @for (user of filteredUsers; track user.id) {
+              <li class="list-group-item list-group-item-action"
+                  style="cursor: pointer;"
+                  (click)="selectUser(user)">
+                {{ user.firstName }} {{ user.lastName }}
+                <small class="text-muted d-block">{{ user.email }}</small>
+              </li>
+            }
+          </ul>
+        }
+  
+        <small class="text-danger"
+               *ngIf="form.get('userId')?.invalid && form.get('userId')?.touched">
+          Veuillez sélectionner un utilisateur.
+        </small>
+      </div>
+  
+      <!-- Confirmation retour -->
+      @if (successLoan) {
+        <div class="alert alert-success mt-3">
+          ✅ Emprunt créé ! Date de retour prévue :
+          <strong>{{ successLoan.returnDate | date:'dd/MM/yyyy' }}</strong>
+        </div>
+      }
+  
+      <!-- Erreur back -->
+      @if (errorMessage) {
+        <div class="alert alert-danger mt-3">{{ errorMessage }}</div>
+      }
+  
+      <button type="submit" class="btn btn-primary btn-block mt-3">
+        Confirmer l'emprunt
+      </button>
+  
+    </form>
+  </div>
