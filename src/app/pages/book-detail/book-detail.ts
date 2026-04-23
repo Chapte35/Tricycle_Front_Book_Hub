@@ -9,10 +9,12 @@ import { BookService } from '../../services/book-service';
 import { AuthService } from '../../services/auth-service';
 import { Book } from '../../interfaces/book';
 import { Etat } from '../../enums/etat';
-
+import { LoanFormComponent } from '../../components/loan-form/loan-form';
+import { LoanResponse } from '../../interfaces/loan';
+import { LoanReturnComponent } from '../../components/loan-return/loan-return';
 @Component({
   selector: 'app-book-detail',
-  imports: [MatCardModule, MatChipsModule, MatButtonModule, MatDividerModule, MatDialogModule],
+  imports: [LoanReturnComponent, MatCardModule, MatChipsModule, MatButtonModule, MatDividerModule, MatDialogModule, LoanFormComponent],
   templateUrl: './book-detail.html',
   styleUrl: './book-detail.css',
 })
@@ -20,6 +22,8 @@ export class BookDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private bookService = inject(BookService);
   protected authService = inject(AuthService);
+  protected loanService = inject(AuthService);
+  protected readonly Etat = Etat;
 
   book?: Book;
 
@@ -32,6 +36,13 @@ export class BookDetail implements OnInit {
       [Etat.INDISPONIBLE]: 'Indisponible',
     };
     return this.book ? labels[this.book.state] : '';
+  }
+
+  onLoanCreated(loan: LoanResponse): void {
+    if (this.book) {
+      this.book.state = Etat.EMPRUNTE;
+      this.book.isAvailable = false;
+    }
   }
 
   get badgeColor(): string {
@@ -50,6 +61,13 @@ export class BookDetail implements OnInit {
     });
   }
 
+  onLoanReturned(): void {
+    if (this.book) {
+      this.book.state = Etat.EMPRUNTABLE;
+      this.book.isAvailable = true;
+    }
+  }
+  
   onReserve(): void {
     // on branchera la réservation quand le back sera prêt
     console.log('Réserver le livre', this.book?.id);

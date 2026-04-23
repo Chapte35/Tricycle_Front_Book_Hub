@@ -4,14 +4,21 @@ import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 import { API_ROUTES } from '../constants/api.constants';
 
+export interface UserSummary {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private http = inject(HttpClient);
 
-  getAll(): Observable<User[]> {
-    return this.http.get<User[]>(API_ROUTES.users.getAll);
+  getAll(): Observable<UserSummary[]> {
+    return this.http.get<UserSummary[]>(API_ROUTES.users.getAll);
   }
 
   getById(id: number): Observable<User> {
