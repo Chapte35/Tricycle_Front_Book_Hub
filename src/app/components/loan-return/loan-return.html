@@ -1,0 +1,19 @@
+<div class="card shadow-sm p-4" style="max-width: 450px;">
+    <h5 class="mb-3">Retour du livre</h5>
+  
+    @if (activeLoan) {
+      <p>Emprunté par : <strong>{{ activeLoan.userEmail }}</strong></p>
+      <p>Emprunté le : <strong>{{ activeLoan.loanDate | date:'dd/MM/yyyy' }}</strong></p>
+      <p>Retour prévu le : <strong>{{ activeLoan.returnDate | date:'dd/MM/yyyy' }}</strong></p>
+    
+      <button class="btn btn-warning btn-block mt-2"
+              [disabled]="isLoading"
+              (click)="return()">
+        {{ isLoading ? 'Traitement...' : 'Confirmer le retour' }}
+      </button>
+    }
+  
+    @if (errorMessage) {
+      <div class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    }
+  </div>

@@ -1,26 +1,26 @@
-^ximport { Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthFormComponent } from '../../components/forms/auth-form/auth-form';
 import { Router } from '@angular/router';
-import { AuthService, RegisterRequest } from '../../services/auth-service';
+import { AuthService, LoginRequest } from '../../services/auth-service';
 
 @Component({
-  selector: 'app-auth',
+  selector: 'app-login',
   standalone: true,
   imports: [AuthFormComponent],
-  templateUrl: './auth.html',
-  styleUrl: './auth.css',
+  templateUrl: './login.html',
 })
-export class AuthComponent {
+export class LoginComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  onRegister(data: RegisterRequest) {
-    this.authService.register(data).subscribe({
+  onLogin(data: LoginRequest) {
+    this.authService.login(data).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token);
+        this.authService.saveUser(response);
         this.router.navigate(['/']);
       },
-      error: (err: Error) => console.error('Erreur register', err)
+      error: (err: Error) => console.error('Erreur login', err)
     });
   }
 }

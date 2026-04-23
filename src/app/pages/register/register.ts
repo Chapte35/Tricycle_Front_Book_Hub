@@ -1,19 +1,29 @@
-import { Component } from '@angular/core';
-import { RegisterFormComponent } from '../../components/forms/register-form/register-form';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService, RegisterRequest } from '../../services/auth-service';
+import { AuthFormComponent } from '../../components/forms/auth-form/auth-form';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RegisterFormComponent],
+  imports: [AuthFormComponent],
   templateUrl: './register.html',
 })
 export class RegisterComponent {
-  constructor(private router: Router) {}
+  private router = inject(Router);
+  private authService = inject(AuthService);
 
-  onRegister(data: any) {
-    console.log('DATA:', data);
-
-    this.router.navigate(['/register']);
+  onRegister(data: RegisterRequest) {
+    console.log("register qui onRegister");
+    
+    this.authService.register(data).subscribe({
+      next: (response) => {
+        this.authService.saveToken(response.token);
+        this.authService.saveUser(response);
+        this.router.navigate(['/']);
+      },
+      error: (err: Error) => console.error('Erreur register', err)
+    });
   }
 }

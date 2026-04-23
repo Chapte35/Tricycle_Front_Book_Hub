@@ -18,6 +18,7 @@ export const API_ROUTES = {
     getMy: `${API_BASE_URL}/api/loans/my`,
     getAll: `${API_BASE_URL}/api/loans`,
     return: (id: number) => `${API_BASE_URL}/api/loans/${id}/return`,
+    getActiveByBook: (bookId: number) => `${API_BASE_URL}/api/loans/active/book/${bookId}`,
   },
   reservations: {
     create: `${API_BASE_URL}/api/reservations`,
