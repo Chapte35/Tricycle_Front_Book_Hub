@@ -1,0 +1,135 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Gestion du catalogue</h2>
+  
+    @if (successMessage) {
+      <div class="alert alert-success">{{ successMessage }}</div>
+    }
+    @if (errorMessage) {
+      <div class="alert alert-danger">{{ errorMessage }}</div>
+    }
+  
+    <!-- Formulaire ajout / édition -->
+    <div class="card shadow-sm p-4 mb-5">
+      <h5>{{ editingBook ? 'Modifier un livre' : 'Ajouter un livre' }}</h5>
+  
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row">
+  
+          <div class="col-md-6 form-group">
+            <label>Titre</label>
+            <input type="text" class="form-control" formControlName="title">
+            <small class="text-danger"
+                   *ngIf="form.get('title')?.invalid && form.get('title')?.touched">
+              Champ requis (min. 2 caractères).
+            </small>
+          </div>
+  
+          <div class="col-md-6 form-group">
+            <label>Auteur</label>
+            <input type="text" class="form-control" formControlName="author">
+            <small class="text-danger"
+                   *ngIf="form.get('author')?.invalid && form.get('author')?.touched">
+              Champ requis (min. 2 caractères).
+            </small>
+          </div>
+  
+          <div class="col-md-6 form-group">
+            <label>ISBN</label>
+            <input type="text" class="form-control" formControlName="ISBN">
+            <small class="text-danger"
+                   *ngIf="form.get('ISBN')?.invalid && form.get('ISBN')?.touched">
+              Champ requis.
+            </small>
+          </div>
+  
+          <div class="col-md-6 form-group">
+            <label>Catégorie</label>
+            <select class="form-control" formControlName="categoryId">
+              <option [ngValue]="null" disabled>Sélectionner...</option>
+              @for (cat of categories; track cat.id) {
+                <option [ngValue]="cat.id">{{ cat.libelle }}</option>
+              }
+            </select>
+            <small class="text-danger"
+                   *ngIf="form.get('categoryId')?.invalid && form.get('categoryId')?.touched">
+              Champ requis.
+            </small>
+          </div>
+  
+          <div class="col-12 form-group">
+            <label>Description</label>
+            <textarea class="form-control" rows="3" formControlName="description"></textarea>
+            <small class="text-danger"
+                   *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+              Champ requis.
+            </small>
+          </div>
+  
+          <div class="col-12 form-group">
+            <label>Couverture</label>
+            <app-image-upload (imageUploaded)="onImageUploaded($event)" />
+            <small class="text-danger"
+                   *ngIf="form.get('cover')?.invalid && form.get('cover')?.touched">
+              Image requise.
+            </small>
+          </div>
+  
+        </div>
+  
+        <div class="mt-3 d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            {{ editingBook ? 'Enregistrer' : 'Ajouter' }}
+          </button>
+          @if (editingBook) {
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+              Annuler
+            </button>
+          }
+        </div>
+      </form>
+    </div>
+  
+    <!-- Tableau -->
+    <table class="table table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Couverture</th>
+          <th>Titre</th>
+          <th>Auteur</th>
+          <th>Catégorie</th>
+          <th>État</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (book of books; track book.id) {
+          <tr>
+            <td>
+              <img [src]="book.cover" [alt]="book.title"
+                   style="width: 48px; height: 64px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.category.libelle }}</td>
+            <td>
+                <span class="badge" [ngClass]="{
+                  'bg-success': book.state === 'EMPRUNTABLE',
+                  'bg-primary': book.state === 'EMPRUNTE',
+                  'bg-warning text-dark': book.state === 'RESERVE',
+                  'bg-danger': book.state === 'RETARD',
+                  'bg-secondary': book.state === 'INDISPONIBLE'
+                }">{{ book.state }}</span>
+              </td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary me-2" (click)="startEdit(book)">
+                Modifier
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="delete(book)">
+                Supprimer
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
