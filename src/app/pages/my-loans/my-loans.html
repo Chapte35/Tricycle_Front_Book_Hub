@@ -1,0 +1,38 @@
+
+<div class="my-loans">
+    <div class="loan-table">
+        <table mat-table [dataSource]="dataSource">
+
+            <!-- COLONNE TITRE -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Titre :</th>
+                <td mat-cell *matCellDef="let element">{{element.title}}</td>
+            </ng-container>
+
+            <!-- COLONNE NAME -->
+             <ng-container matColumnDef="author">
+                <th mat-header-cell *matHeaderCellDef>Auteur :</th>
+                <td mat-cell *matCellDef="let element">{{element.author}}</td>
+             </ng-container>
+
+            <!-- COLONNE DATE EMPRUNT -->
+             <ng-container matColumnDef="loanDate">
+                <th mat-header-cell *matHeaderCellDef>Date d'emprunt :</th>
+                <td mat-cell *matCellDef="let element">{{element.loanDate}}</td>
+             </ng-container>
+
+            <!-- COLONNE DATE RETOUR -->
+             <ng-container matColumnDef="returnDate">
+                <th mat-header-cell *matHeaderCellDef>Date de retour :</th>
+                <td mat-cell *matCellDef="let element">{{element.returnDate}}</td>
+             </ng-container>
+
+            <!-- HEADER et ROWS  -->
+             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons=""></mat-paginator>
+    </div>
+</div>
+
