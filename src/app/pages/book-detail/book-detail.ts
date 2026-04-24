@@ -12,9 +12,13 @@ import { Etat } from '../../enums/etat';
 import { LoanFormComponent } from '../../components/loan-form/loan-form';
 import { LoanResponse } from '../../interfaces/loan';
 import { LoanReturnComponent } from '../../components/loan-return/loan-return';
+import { ReservationButtonComponent } from '../../components/reservation-button/reservation-button';
+import { ReservationResponse } from '../../interfaces/reservation';
+import { NgClass } from '@angular/common';
+
 @Component({
   selector: 'app-book-detail',
-  imports: [LoanReturnComponent, MatCardModule, MatChipsModule, MatButtonModule, MatDividerModule, MatDialogModule, LoanFormComponent],
+  imports: [LoanReturnComponent, NgClass, ReservationButtonComponent, MatCardModule, MatChipsModule, MatButtonModule, MatDividerModule, MatDialogModule, LoanFormComponent],
   templateUrl: './book-detail.html',
   styleUrl: './book-detail.css',
 })
@@ -22,7 +26,6 @@ export class BookDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private bookService = inject(BookService);
   protected authService = inject(AuthService);
-  protected loanService = inject(AuthService);
   protected readonly Etat = Etat;
 
   book?: Book;
@@ -38,19 +41,29 @@ export class BookDetail implements OnInit {
     return this.book ? labels[this.book.state] : '';
   }
 
+  get badgeClass(): string {
+    const classes: Partial<Record<Etat, string>> = {
+      [Etat.EMPRUNTABLE]:  'badge-green',
+      [Etat.EMPRUNTE]:     'badge-blue',
+      [Etat.RESERVE]:      'badge-yellow',
+      [Etat.RETARD]:       'badge-red',
+      [Etat.INDISPONIBLE]: 'badge-grey',
+    };
+    return this.book ? (classes[this.book.state] ?? '') : '';
+  }
+
+  onReserved(reservation: ReservationResponse): void {
+    if (this.book) {
+      this.book.state = Etat.RESERVE;
+      this.book.isAvailable = false;
+    }
+  }
+
   onLoanCreated(loan: LoanResponse): void {
     if (this.book) {
       this.book.state = Etat.EMPRUNTE;
       this.book.isAvailable = false;
     }
-  }
-
-  get badgeColor(): string {
-    return this.book?.state === Etat.EMPRUNTABLE ? 'primary' : 'warn';
-  }
-
-  get canReserve(): boolean {
-    return this.authService.isLoggedIn() && this.book?.state === Etat.EMPRUNTABLE;
   }
 
   ngOnInit(): void {
@@ -66,10 +79,5 @@ export class BookDetail implements OnInit {
       this.book.state = Etat.EMPRUNTABLE;
       this.book.isAvailable = true;
     }
-  }
-  
-  onReserve(): void {
-    // on branchera la réservation quand le back sera prêt
-    console.log('Réserver le livre', this.book?.id);
   }
 }
