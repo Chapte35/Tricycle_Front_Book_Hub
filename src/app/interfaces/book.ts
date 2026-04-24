@@ -12,3 +12,12 @@ export interface Book {
   state: Etat;
   category: Category;
 }
+
+export interface BookFormData {
+  title: string;
+  author: string;
+  description: string;
+  ISBN: string;
+  cover: string;
+  categoryId: number;
+}

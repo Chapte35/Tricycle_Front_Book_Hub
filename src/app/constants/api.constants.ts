@@ -1,6 +1,9 @@
 export const API_BASE_URL = 'http://localhost:8080';
 
 export const API_ROUTES = {
+  upload: {
+    image: `${API_BASE_URL}/api/upload/image`
+  },
   auth: {
     register: `${API_BASE_URL}/api/auth/register`,
     login: `${API_BASE_URL}/api/auth/login`,
