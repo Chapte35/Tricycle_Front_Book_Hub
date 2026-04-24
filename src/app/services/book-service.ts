@@ -18,9 +18,14 @@ export class BookService {
     return this.http.get<Book>(API_ROUTES.books.getById(id));
   }
 
-  search(query: string): Observable<Book[]> {
-    return this.http.get<Book[]>(API_ROUTES.books.search, { params: { q: query } });
-  }
+  search(query?: string, categoryId?: number, available?: boolean, sort?: string): Observable<Book[]> {
+    let params: any = {};
+      if (query) params['query'] = query;
+      if (categoryId) params['categoryId'] = categoryId;
+      if (available !== undefined && available !== null) params['available'] = available;
+      if (sort) params['sort'] = sort;
+      return this.http.get<Book[]>(API_ROUTES.books.search, { params });
+    }
 
   create(book: Omit<Book, 'id'>): Observable<Book> {
     return this.http.post<Book>(API_ROUTES.books.create, book);
