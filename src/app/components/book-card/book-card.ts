@@ -4,10 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { Book } from '../../interfaces/book';
 import { Etat } from '../../enums/etat';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-book-card',
-  imports: [MatCardModule, MatChipsModule],
+  imports: [MatCardModule, MatChipsModule, NgClass],
   templateUrl: './book-card.html',
   styleUrl: './book-card.css',
 })
@@ -19,8 +20,15 @@ export class BookCard {
     this.router.navigate(['/books', this.book.id]);
   }
 
-  get badgeColor(): string {
-    return this.book.state === Etat.EMPRUNTABLE ? 'primary' : 'warn';
+  get badgeClass(): string {
+    const classes: Partial<Record<Etat, string>> = {
+      [Etat.EMPRUNTABLE]:  'badge-green',
+      [Etat.EMPRUNTE]:     'badge-blue',
+      [Etat.RESERVE]:      'badge-yellow',
+      [Etat.RETARD]:       'badge-red',
+      [Etat.INDISPONIBLE]: 'badge-grey',
+    };
+    return classes[this.book!.state] ?? '';
   }
 
   get badgeLabel(): string {
@@ -29,7 +37,7 @@ export class BookCard {
       [Etat.RESERVE]: 'Réservé',
       [Etat.EMPRUNTE]: 'Emprunté',
       [Etat.RETARD]: 'En retard',
-      [Etat.INDISPONIBLE]: 'Indisponible',
+      [Etat.INDISPONIBLE]: 'Consultable sur place',
     };
     return labels[this.book.state];
   }
