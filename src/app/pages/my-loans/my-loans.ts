@@ -26,7 +26,7 @@ export class Myloans implements OnInit {
   sortDirection: 'asc' | 'desc' = 'asc';
 
   ngOnInit(): void {
-    this.loanService.getAll().subscribe({
+    this.loanService.getMy().subscribe({
       next: (data) => this.loans = data,
       error: (err) => console.error('Erreur chargement des emprunts', err)
     });
