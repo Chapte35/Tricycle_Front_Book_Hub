@@ -19,6 +19,7 @@ export class HomeAdminComponent implements OnInit {
   private fb              = inject(FormBuilder);
   private bookService     = inject(BookService);
   private categoryService = inject(CategoryService);
+  protected readonly etats = Object.values(Etat);
 
   books: Book[]         = [];
   categories: Category[] = [];
@@ -46,6 +47,7 @@ export class HomeAdminComponent implements OnInit {
       ISBN:        [book?.ISBN        ?? '', Validators.required],
       cover:       [book?.cover       ?? '', Validators.required],
       categoryId:  [book?.category?.id ?? null, Validators.required],
+      state:       [book?.state       ?? Etat.EMPRUNTABLE, Validators.required],
     });
   }
 

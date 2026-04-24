@@ -55,6 +55,15 @@
               Champ requis.
             </small>
           </div>
+
+          <div class="col-md-6 form-group">
+            <label>État</label>
+            <select class="form-control" formControlName="state">
+              @for (etat of etats; track etat) {
+                <option [ngValue]="etat">{{ etat }}</option>
+              }
+            </select>
+          </div>
   
           <div class="col-12 form-group">
             <label>Description</label>
