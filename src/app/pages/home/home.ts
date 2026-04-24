@@ -1,13 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { Button } from '../../components/button/button';
 import { BookList } from '../../components/book-list/book-list';
 import { Book } from '../../interfaces/book';
 import { BookService } from '../../services/book-service';
+import { SearchFilters, SearchBar } from '../../components/search-bar/search-bar';
 
 @Component({
   selector: 'app-home',
-  imports: [ BookList],
+  imports: [ BookList, SearchBar],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -16,9 +15,24 @@ export class Home implements OnInit {
   books: Book[] = [];
 
   ngOnInit(): void {
+    this.loadAll();
+  }
+
+  loadAll(): void {
     this.bookService.getAll().subscribe({
       next: (data) => this.books = data,
-      error: (err) => console.error('Erreur chargement livres', err)
+      error: (err) => console.error(err)
+    });
+  }
+
+  onSearch(filters: SearchFilters): void {
+    if (!filters.query && !filters.categoryId && filters.available === undefined) {
+      this.loadAll();
+      return;
+    }
+    this.bookService.search(filters.query, filters.categoryId, filters.available, filters.sort).subscribe({
+      next: (data) => this.books = data,
+      error: (err) => console.error(err)
     });
   }
 }
