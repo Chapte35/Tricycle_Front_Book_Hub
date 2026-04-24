@@ -1,17 +1,48 @@
-<header class="navbar">
+<header class="navbar navbar-expand-lg navbar-light">
   <div class="nameContainer">
-  <img src="assets/logo.jpg" alt="logo" width="50" height="50">
-  <div class="logo">BookHub</div>
+    <a routerLink="/">
+      <img src="assets/logo.jpg" alt="logo" width="50" height="50" />
+    </a>
+    <div class="logo">BookHub</div>
   </div>
-    
 
   <nav>
-    <a routerLink="/">Accueil</a>
-    <a routerLink="/books">Livres</a>
-    <a routerLink="/books" *ngIf="isLoggedIn">Mes emprunts</a>
-    <a routerLink="/login" *ngIf="!isLoggedIn">Connexion</a>
-    <a routerLink="/register" *ngIf="!isLoggedIn">Inscription</a>
-    <a routerLink="/profile"*ngIf="isLoggedIn">Profil</a>
-    <a (click)="logout()" *ngIf="isLoggedIn" style="cursor:pointer">Déconnexion</a>
+
+    <button
+      class="navbar-toggler ms-auto"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- dans accueil mettre les infos comme les horaires par ex ... -->
+        <!-- <a routerLink="/">Accueil</a> -->
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/books">Nos livres</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/myloans" *ngIf="isLoggedIn" >Mes emprunts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/login" *ngIf="!isLoggedIn">Connexion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/register" *ngIf="!isLoggedIn">Inscription</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLink=" *ngIf="isLoggedIn"/profile">Profil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active"  (click)="logout()" *ngIf="isLoggedIn" style="cursor:pointer">Déconnexion</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
