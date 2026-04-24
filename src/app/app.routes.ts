@@ -2,7 +2,7 @@ import { Myloans } from './pages/my-loans/my-loans';
 import { Routes } from '@angular/router';
 import { RegisterComponent } from './pages/register/register';
 import { Home } from './pages/home/home';
-import { ProfileComponent } from './components/profile/profile';
+import { ProfilePage } from './pages/profile/profile';
 import { BookDetail } from './pages/book-detail/book-detail';
 import { LoginComponent } from './pages/login/login';
 import { HomeAdminComponent } from './pages/home-admin/home-admin';
@@ -12,7 +12,7 @@ export const routes: Routes = [
     { path: '', component: Home },
     { path: 'login',    component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'profile', component: ProfileComponent },
+    { path: 'profile', component: ProfilePage },
     { path: 'books/:id', component: BookDetail },
     { path: 'myloans', component: Myloans },
     { path: 'admin', component: HomeAdminComponent, canActivate: [adminGuard] },

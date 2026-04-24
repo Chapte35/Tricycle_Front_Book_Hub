@@ -1,1 +1,18 @@
-<p>profile works!</p>
+<div class="container mt-5">
+
+  <app-profile
+    [user]="currentUser"
+    (save)="onSave($event)">
+  </app-profile>
+
+  <app-change-password
+    (save)="onChangePassword($event)">
+  </app-change-password>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-danger" (click)="onDeleteAccount()">
+      Supprimer mon compte
+    </button>
+  </div>
+
+</div>
