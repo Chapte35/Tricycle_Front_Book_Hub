@@ -25,7 +25,7 @@
         <!-- dans accueil mettre les infos comme les horaires par ex ... -->
         <!-- <a routerLink="/">Accueil</a> -->
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/books">Nos livres</a>
+          <a class="nav-link active" routerLink="/">Nos livres</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" routerLink="/myloans" *ngIf="isLoggedIn" >Mes emprunts</a>
@@ -37,7 +37,7 @@
           <a class="nav-link active" routerLink="/register" *ngIf="!isLoggedIn">Inscription</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" routerLink=" *ngIf="isLoggedIn"/profile">Profil</a>
+          <a class="nav-link active" routerLink="/profile" *ngIf="isLoggedIn">Profil</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active"  (click)="logout()" *ngIf="isLoggedIn" style="cursor:pointer">Déconnexion</a>

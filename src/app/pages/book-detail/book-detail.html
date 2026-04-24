@@ -1,40 +1,50 @@
 @if (book) {
-    <div class="book-detail">
-      <div class="book-cover">
-        <img [src]="book.cover" [alt]="book.title" />
-      </div>
-  
-      <div class="book-info">
-        <mat-chip-set>
-          <mat-chip [color]="badgeColor" highlighted>{{ badgeLabel }}</mat-chip>
-          <mat-chip>{{ book.category.libelle }}</mat-chip>
-        </mat-chip-set>
-  
-        <h1>{{ book.title }}</h1>
-        <h2>{{ book.author }}</h2>
-  
-        <mat-divider />
-  
-        <p class="description">{{ book.description }}</p>
-  
-        <p><strong>ISBN :</strong> {{ book.ISBN }}</p>
-  
-        @if (authService.isLoggedIn() && !canReserve) {
-          <p class="unavailable">Ce livre n'est pas disponible à la réservation.</p>
-        }
-  
-        @if (!authService.isLoggedIn()) {
-          <p class="login-hint">Connectez-vous pour réserver ce livre.</p>
-        }
-        @if (authService.isAdmin()) {
-          @if (book.state === Etat.EMPRUNTABLE) {
-            <app-loan-form [bookId]="book.id" (loanCreated)="onLoanCreated($event)" />
-          } @else if (book.state === Etat.EMPRUNTE || book.state === Etat.RETARD) {
-            <app-loan-return [bookId]="book.id" (loanReturned)="onLoanReturned()" />
-          }
-        }
-      </div>
+  <div class="book-detail">
+    <div class="book-cover">
+      <img [src]="book.cover" [alt]="book.title" />
     </div>
-  } @else {
-    <p>Chargement...</p>
-  }
+
+    <div class="book-info">
+      <mat-chip-set>
+        <span class="state-badge" [ngClass]="badgeClass">{{ badgeLabel }}</span>
+        <mat-chip>{{ book.category.libelle }}</mat-chip>
+      </mat-chip-set>
+
+      <h1>{{ book.title }}</h1>
+      <h2>{{ book.author }}</h2>
+
+      <mat-divider />
+
+      <p class="description">{{ book.description }}</p>
+
+      <p><strong>ISBN :</strong> {{ book.ISBN }}</p>
+
+      @if (!authService.isLoggedIn()) {
+        <p class="login-hint">Connectez-vous pour interagir avec ce livre.</p>
+      }
+
+      @if (authService.isAdmin()) {
+        @if (book.state === Etat.EMPRUNTABLE) {
+          <app-loan-form [bookId]="book.id" (loanCreated)="onLoanCreated($event)" />
+        } @else if (book.state === Etat.EMPRUNTE || book.state === Etat.RETARD) {
+          <app-loan-return [bookId]="book.id" (loanReturned)="onLoanReturned()" />
+        }
+      }
+
+      @if (authService.isLoggedIn() && !authService.isAdmin()) {
+        @if (book.state === Etat.EMPRUNTABLE) {
+          <p class="text-muted">Ce livre est disponible, demandez à un bibliothécaire de vous le prêter.</p>
+        } @else if (book.state === Etat.EMPRUNTE || book.state === Etat.RETARD) {
+          <app-reservation-button [bookId]="book.id" (reserved)="onReserved($event)" />
+        } @else if (book.state === Etat.RESERVE) {
+          <p class="text-warning">Ce livre est déjà réservé.</p>
+        } @else if (book.state === Etat.INDISPONIBLE) {
+          <p class="text-muted">Ce livre est indisponible.</p>
+        }
+      }
+
+    </div>
+  </div>
+} @else {
+  <p>Chargement...</p>
+}

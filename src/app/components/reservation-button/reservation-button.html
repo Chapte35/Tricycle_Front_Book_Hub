@@ -1,0 +1,15 @@
+@if (success) {
+    <div class="alert alert-success">
+      ✅ Réservation confirmée pour "{{ success.bookTitle }}"
+    </div>
+  } @else {
+    <button class="btn btn-warning"
+            [disabled]="isLoading"
+            (click)="reserve()">
+      {{ isLoading ? 'Réservation...' : '🔔 Réserver' }}
+    </button>
+  
+    @if (errorMessage) {
+      <small class="text-danger d-block mt-2">{{ errorMessage }}</small>
+    }
+  }
