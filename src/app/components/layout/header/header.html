@@ -7,7 +7,7 @@
     <a routerLink="/books" *ngIf="isLoggedIn">Mes emprunts</a>
     <a routerLink="/login" *ngIf="!isLoggedIn">Connexion</a>
     <a routerLink="/register" *ngIf="!isLoggedIn">Inscription</a>
-    <a routerLink="/profile "*ngIf="isLoggedIn">Profil</a>
+    <a routerLink="/profile"*ngIf="isLoggedIn">Profil</a>
     <a (click)="logout()" *ngIf="isLoggedIn" style="cursor:pointer">Déconnexion</a>
   </nav>
 </header>

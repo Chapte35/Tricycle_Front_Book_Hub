@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ChangePasswordRequest } from '../../../services/profile-service';
+import { ChangePasswordRequest } from '../../../services/user-service';
 import { CommonModule } from '@angular/common';
 
 @Component({

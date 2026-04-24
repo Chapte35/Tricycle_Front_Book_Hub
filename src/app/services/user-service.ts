@@ -11,6 +11,20 @@ export interface UserSummary {
   email: string;
 }
 
+export interface UpdateProfileRequest {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  password?: string;
+}
+
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  newPassword: string;
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +42,10 @@ export class UserService {
   update(id: number, user: Partial<User>): Observable<User> {
     return this.http.put<User>(API_ROUTES.users.update(id), user);
   }
+
+  updateProfile(id: number, data: UpdateProfileRequest): Observable<User> {
+      return this.update(id, data);
+    }
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(API_ROUTES.users.delete(id));

@@ -1,7 +1,7 @@
+import { AuthService } from './../../services/auth-service';
 import { Component, inject, OnInit } from '@angular/core';
 import { ProfileComponent } from "../../components/profile/profile";
-import { ChangePasswordRequest, ProfileService } from '../../services/profile-service';
-import { UserService } from '../../services/user-service';
+import { ChangePasswordRequest, UserService } from '../../services/user-service';
 import { User } from '../../interfaces/user';
 import { ChangePasswordComponent } from '../../components/forms/change-password/change-password';
 import { Router } from '@angular/router';
@@ -15,22 +15,25 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  private profileService = inject(ProfileService);
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
-  user: User | null = null;
-  private userId: number = JSON.parse(localStorage.getItem('user') || '{}').id;
+  currentUser: User | null = null;
+
+  private get userId(): number {
+    return this.authService.getUser()!.id;
+  }
 
   ngOnInit() {
-    this.profileService.getUser(this.userId).subscribe(user => {
-      this.user = user;
+    this.userService.getById(this.userId).subscribe(user => {
+      this.currentUser = user; 
     });
   }
 
   onSave(updatedUser: Partial<User>) {
-    this.profileService.updateProfile(this.userId, updatedUser).subscribe(user => {
-      this.user = user;
+    this.userService.updateProfile(this.userId, updatedUser).subscribe(user => {
+      this.currentUser = user;  
       console.log('Profil mis à jour', user);
     });
   }
@@ -43,8 +46,8 @@ export class ProfilePage implements OnInit {
 
   onDeleteAccount() {
     if (confirm('Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.')) {
-      this.profileService.deleteAccount(this.userId).subscribe(() => {
-        localStorage.clear();
+      this.userService.delete(this.userId).subscribe(() => {
+        this.authService.logout(); 
         this.router.navigate(['/login']);
       });
     }
