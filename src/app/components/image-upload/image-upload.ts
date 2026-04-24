@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Output, Input, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { API_ROUTES } from '../../constants/api.constants';
@@ -12,6 +12,7 @@ import { API_ROUTES } from '../../constants/api.constants';
 export class ImageUploadComponent {
 
   @Output() imageUploaded = new EventEmitter<string>();
+  @Input() currentImage: string | null = null;
 
   private http = inject(HttpClient);
 
@@ -19,6 +20,12 @@ export class ImageUploadComponent {
   isUploading = false;
   errorMessage: string | null = null;
 
+  ngOnInit() {
+    if (this.currentImage) {
+      this.preview = this.currentImage;
+    }
+  }
+  
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;

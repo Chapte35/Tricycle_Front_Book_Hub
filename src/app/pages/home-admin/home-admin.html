@@ -76,7 +76,9 @@
   
           <div class="col-12 form-group">
             <label>Couverture</label>
-            <app-image-upload (imageUploaded)="onImageUploaded($event)" />
+            <app-image-upload 
+              [currentImage]="editingBook?.cover ?? null"
+              (imageUploaded)="onImageUploaded($event)" />
             <small class="text-danger"
                    *ngIf="form.get('cover')?.invalid && form.get('cover')?.touched">
               Image requise.

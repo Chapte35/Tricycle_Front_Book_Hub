@@ -87,6 +87,7 @@ export class HomeAdminComponent implements OnInit {
     const { categoryId, ...rest } = this.form.value;
     const payload = {
       ...rest,
+      cover: this.form.value.cover || this.editingBook?.cover || '',
       category: { id: categoryId }
     };
   
