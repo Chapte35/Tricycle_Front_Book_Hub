@@ -1,11 +1,37 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 15px;
-  background: #f5f5f5;
+  background: #efe8db;
+  padding: 0px !important
 }
 
 nav a {
   margin: 0 10px;
   text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  font-size: 18px; 
+  font-weight: 600;
+}
+
+
+.logo-img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+
+.nameContainer{
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.logo{
+  margin: auto;
+  font-weight: 700;
+  font-size: 1.5rem;
 }
