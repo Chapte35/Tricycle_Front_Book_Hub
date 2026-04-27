@@ -1,4 +1,5 @@
 <div class="container mt-4">
+    <app-search-bar (search)="onSearch($event)" />
     <h2 class="mb-4">Gestion du catalogue</h2>
   
     @if (successMessage) {
@@ -10,8 +11,14 @@
   
     <!-- Formulaire ajout / édition -->
     <div class="card shadow-sm p-4 mb-5">
-      <h5>{{ editingBook ? 'Modifier un livre' : 'Ajouter un livre' }}</h5>
-  
+      <div class="d-flex justify-content-between align-items-center"
+       style="cursor: pointer;"
+       (click)="formOpen = !formOpen">
+        <h5 class="mb-0">{{ editingBook ? 'Modifier un livre' : 'Ajouter un livre' }}</h5>
+        <span>{{ formOpen ? '▲' : '▼' }}</span>
+      </div>
+      @if (formOpen) {
+        <hr>
       <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="row">
   
@@ -98,6 +105,7 @@
           }
         </div>
       </form>
+    }
     </div>
   
     <!-- Tableau -->
@@ -114,7 +122,7 @@
       </thead>
       <tbody>
         @for (book of books; track book.id) {
-          <tr>
+          <tr [routerLink]="['/books', book.id]" style="cursor: pointer;">
             <td>
               <img [src]="book.cover" [alt]="book.title"
                    style="width: 48px; height: 64px; object-fit: cover; border-radius: 4px;">
