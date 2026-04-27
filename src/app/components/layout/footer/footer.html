@@ -8,10 +8,7 @@
 
 <div class="privacy-overlay" *ngIf="isPrivacyOpen">
   <div class="privacy-modal">
-    <button class="close-button" (click)="closePrivacyPolicy()">
-      ✕
-    </button>
-
+    <button type="button" (click)="closePrivacyPolicy()">✕</button>
     <markdown [data]="markdown"></markdown>
   </div>
 </div>

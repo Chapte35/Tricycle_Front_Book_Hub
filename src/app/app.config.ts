@@ -4,6 +4,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { routes } from './app.routes';
 import { tokenExpiryInterceptor } from './interceptors/token-expiry.interceptor';
+import { provideMarkdown } from 'ngx-markdown';
 
 
 export const appConfig: ApplicationConfig = {
@@ -12,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideHttpClient(withInterceptors([authInterceptor, tokenExpiryInterceptor]))
-
+    provideHttpClient(withInterceptors([authInterceptor, tokenExpiryInterceptor])),
+    provideMarkdown()
   ]
 };
