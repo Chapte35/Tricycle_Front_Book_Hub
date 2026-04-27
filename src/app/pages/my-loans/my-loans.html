@@ -55,8 +55,8 @@
         <tr *ngFor="let loan of pagedLoans">
           <td>{{ loan.books.title }}</td>
           <td>{{ loan.books.author }}</td>
-          <td>{{ loan.loanDate }}</td>
-          <td>{{ loan.returnDate }}</td>
+          <td>{{ loan.loanDate | date: 'dd/MM/yyyy'}}</td>
+          <td>{{ loan.returnDate | date:'dd/MM/yyyy'}}</td>
           <td>{{ loan.books.state }}</td>
         </tr>
         <tr *ngIf="pagedLoans.length === 0">
