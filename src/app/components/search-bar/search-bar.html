@@ -1,13 +1,13 @@
-<div class="card shadow-sm p-3 mb-4">
+<div class="card shadow-sm p-3 mb-4 mx-auto">
   <form [formGroup]="form" (ngSubmit)="onSearch()" class="row g-2 align-items-end">
 
-    <div class="col-md-4">
+    <div class="col-12 col-md-3">
       <label class="form-label">Rechercher</label>
       <input class="form-control" formControlName="query"
              placeholder="Titre, auteur, ISBN...">
     </div>
 
-    <div class="col-md-3">
+    <div class="col-12 col-md-2">
       <label class="form-label">Catégorie</label>
       <select class="form-select" formControlName="categoryId">
         <option [ngValue]="null">Toutes</option>
@@ -17,7 +17,7 @@
       </select>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-12 col-md-2">
       <label class="form-label">Disponibilité</label>
       <select class="form-select" formControlName="available">
         <option [ngValue]="null">Tous</option>
@@ -26,7 +26,7 @@
       </select>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-12 col-md-2">
       <label class="form-label">Trier par</label>
       <select class="form-select" formControlName="sort">
         <option value="title">Titre</option>
@@ -34,9 +34,9 @@
       </select>
     </div>
 
-    <div class="col-md-1 d-flex gap-2">
-      <button type="submit" class="btn btn-primary">Rechercher</button>
-      <button type="button" class="btn btn-outline-secondary" (click)="onReset()">✕</button>
+    <div class="col-12 col-md-2 d-flex flex-row flex-md-row gap-2">
+      <button type="submit" class="btn btn-primary flex-fill">Rechercher</button>
+      <button type="button" class="btn btn-outline-secondary flex-fill" (click)="onReset()" title="Réinitialiser la recherche">✕</button>
     </div>
 
   </form>
