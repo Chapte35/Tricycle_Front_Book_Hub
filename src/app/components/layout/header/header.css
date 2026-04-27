@@ -1,37 +1,38 @@
-.navbar.navbar-expand-lg.navbar-light{
-  display: flex;
-  justify-content: space-between;
-  background: #efe8db;
-  padding: 0px !important
+.navbar-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #2c1a0e;
+  letter-spacing: -0.5px;
 }
 
-nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: black;
+.nav-link {
+  color: #2c1a0e !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 6px 12px !important;
+  border-radius: 6px;
+  transition: background 0.2s;
 }
 
-a:hover {
-  font-size: 18px; 
+.nav-link:hover,
+.nav-active {
+  background: rgba(44, 26, 14, 0.1);
   font-weight: 600;
 }
 
-
-.logo-img {
-  height: 100%;
-  width: auto;
-  object-fit: contain;
+.logout-btn {
+  background: none;
+  border: 1px solid #2c1a0e;
+  color: #2c1a0e;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
 
-
-.nameContainer{
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
-}
-
-.logo{
-  margin: auto;
-  font-weight: 700;
-  font-size: 1.5rem;
+.logout-btn:hover {
+  background: #2c1a0e;
+  color: #efe8db;
 }

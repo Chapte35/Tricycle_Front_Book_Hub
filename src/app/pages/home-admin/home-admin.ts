@@ -7,11 +7,14 @@ import { Book } from '../../interfaces/book';
 import { Category } from '../../interfaces/category';
 import { Etat } from '../../enums/etat';
 import { ImageUploadComponent } from '../../components/image-upload/image-upload';
+import { RouterLink } from '@angular/router';
+import { SearchBar, SearchFilters } from '../../components/search-bar/search-bar';
+
 
 @Component({
   selector: 'app-home-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ImageUploadComponent],
+  imports: [CommonModule, SearchBar, ReactiveFormsModule, ImageUploadComponent, RouterLink],
   templateUrl: './home-admin.html',
 })
 export class HomeAdminComponent implements OnInit {
@@ -26,6 +29,7 @@ export class HomeAdminComponent implements OnInit {
   editingBook: Book | null = null;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  formOpen = false;
 
   form!: FormGroup;
 
@@ -51,11 +55,23 @@ export class HomeAdminComponent implements OnInit {
     });
   }
 
-  loadBooks() {
-    this.bookService.getAll().subscribe({
+  loadBooks(filters?: SearchFilters) {
+    if (!filters || (!filters.query && !filters.categoryId && filters.available === undefined)) {
+      this.bookService.getAll().subscribe({
+        next: (books) => this.books = books,
+        error: () => this.errorMessage = 'Erreur lors du chargement des livres.'
+      });
+      return;
+    }
+  
+    this.bookService.search(filters.query, filters.categoryId, filters.available, filters.sort).subscribe({
       next: (books) => this.books = books,
       error: () => this.errorMessage = 'Erreur lors du chargement des livres.'
     });
+  }
+  
+  onSearch(filters: SearchFilters): void {
+    this.loadBooks(filters);
   }
 
   loadCategories() {
@@ -68,6 +84,7 @@ export class HomeAdminComponent implements OnInit {
   startEdit(book: Book) {
     this.editingBook = book;
     this.buildForm(book);
+    this.formOpen = true;
     this.errorMessage = null;
     this.successMessage = null;
   }

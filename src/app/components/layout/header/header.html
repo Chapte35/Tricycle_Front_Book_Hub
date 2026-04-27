@@ -1,51 +1,62 @@
-<header class="navbar navbar-expand-lg navbar-light">
-  <div class="nameContainer">
-    <a routerLink="/">
-      <img src="assets/logo.jpg" alt="logo" width="50" height="50" />
+<header class="navbar navbar-expand-lg" style="background: #efe8db;">
+  <div class="container-fluid px-3">
+
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
+      <img src="assets/logo.jpg" alt="logo" width="44" height="44" class="rounded-2" />
+      <span class="navbar-title">BookHub</span>
     </a>
-    <div class="logo">BookHub</div>
-  </div>
 
-  <nav>
-
-    <button
-      class="navbar-toggler ms-auto"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler border-0" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <!-- dans accueil mettre les infos comme les horaires par ex ... -->
-        <!-- <a routerLink="/">Accueil</a> -->
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/">Nos livres</a>
+          <a class="nav-link" routerLink="/" routerLinkActive="nav-active"
+             [routerLinkActiveOptions]="{exact: true}">Nos livres</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/myloans" *ngIf="isLoggedIn" >Mes emprunts</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/myreservations" *ngIf="isLoggedIn" >Mes réservations</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/login" *ngIf="!isLoggedIn">Connexion</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/register" *ngIf="!isLoggedIn">Inscription</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/profile" *ngIf="isLoggedIn">Profil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active"  (click)="logout()" *ngIf="isLoggedIn" style="cursor:pointer">Déconnexion</a>
-        </li>
+
+        @if (isLoggedIn) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/myloans" routerLinkActive="nav-active">Mes emprunts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/myreservations" routerLinkActive="nav-active">Mes réservations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profile" routerLinkActive="nav-active">Profil</a>
+          </li>
+        }
+
+        @if (isAdmin) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin" routerLinkActive="nav-active">Administration</a>
+          </li>
+        }
+
+        @if (!isLoggedIn) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="nav-active">Connexion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register" routerLinkActive="nav-active">Inscription</a>
+          </li>
+        }
+
+        @if (isLoggedIn) {
+          <li class="nav-item">
+            <button class="logout-btn" (click)="logout()">Déconnexion</button>
+          </li>
+        }
+
       </ul>
     </div>
-  </nav>
+  </div>
 </header>
