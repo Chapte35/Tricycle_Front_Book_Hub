@@ -19,4 +19,9 @@ export class ReservationService {
   cancel(id: number): Observable<void> {
     return this.http.delete<void>(API_ROUTES.reservations.delete(id));
   }
+
+  getActiveByBook(bookId: number): Observable<ReservationResponse> {
+    return this.http.get<ReservationResponse>(API_ROUTES.reservations.getActiveByBook(bookId));
+  }
+  
 }
