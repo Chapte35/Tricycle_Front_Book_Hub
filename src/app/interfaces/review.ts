@@ -1,11 +1,15 @@
-import { Book } from './book';
-import { User } from './user';
-
-export interface Review {
+export interface ReviewResponse {
   id: number;
-  date: Date;
   comment: string;
   rating: number;
-  books: Book;
-  user: User;
+  date: string;
+  userFirstName: string;
+  userLastName: string;
+  owner: boolean;
+  canDelete: boolean;
+}
+
+export interface ReviewRequest {
+  comment: string;
+  rating: number;
 }

@@ -24,14 +24,17 @@ export const API_ROUTES = {
     getActiveByBook: (bookId: number) => `${API_BASE_URL}/api/loans/active/book/${bookId}`,
   },
   reservations: {
-    create: `${API_BASE_URL}/api/reservations`,
+    create: (bookId: number) => `${API_BASE_URL}/api/reservations/book/${bookId}`,
     getMy: `${API_BASE_URL}/api/reservations/my`,
     delete: (id: number) => `${API_BASE_URL}/api/reservations/${id}`,
+    getActiveByBook: (bookId: number) => `${API_BASE_URL}/api/reservations/active/book/${bookId}`,
   },
-  ratings: {
-    create: (bookId: number) => `${API_BASE_URL}/api/books/${bookId}/ratings`,
-    update: (id: number) => `${API_BASE_URL}/api/ratings/${id}`,
-    delete: (id: number) => `${API_BASE_URL}/api/ratings/${id}`,
+  reviews: {
+    getByBook:  (bookId: number) => `${API_BASE_URL}/api/books/${bookId}/reviews`,
+    getAverage: (bookId: number) => `${API_BASE_URL}/api/books/${bookId}/reviews/average`,
+    create:     (bookId: number) => `${API_BASE_URL}/api/books/${bookId}/reviews`,
+    update:     (bookId: number, reviewId: number) => `${API_BASE_URL}/api/books/${bookId}/reviews/${reviewId}`,
+    delete:     (bookId: number, reviewId: number) => `${API_BASE_URL}/api/books/${bookId}/reviews/${reviewId}`,
   },
   categories: {
     getAll: `${API_BASE_URL}/api/categories`,

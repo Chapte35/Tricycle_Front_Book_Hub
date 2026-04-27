@@ -1,43 +1,55 @@
-<div class="card shadow-sm p-3 mb-4">
-  <form [formGroup]="form" (ngSubmit)="onSearch()" class="row g-2 align-items-end">
+<!-- dropdown bouton pour le responsive -->
+<button class="btn btn-outline-secondary d-md-none w-100 mb-2"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#filters">
+        Filtres
+</button>
 
-    <div class="col-md-4">
-      <label class="form-label">Rechercher</label>
-      <input class="form-control" formControlName="query"
-             placeholder="Titre, auteur, ISBN...">
-    </div>
+<div class="collapse d-md-block" id="filters">
 
-    <div class="col-md-3">
-      <label class="form-label">Catégorie</label>
-      <select class="form-select" formControlName="categoryId">
-        <option [ngValue]="null">Toutes</option>
-        @for (cat of categories; track cat.id) {
-          <option [ngValue]="cat.id">{{ cat.libelle }}</option>
-        }
-      </select>
-    </div>
+<div class="card shadow-sm p-3 mb-4 mx-auto">
 
-    <div class="col-md-2">
-      <label class="form-label">Disponibilité</label>
-      <select class="form-select" formControlName="available">
-        <option [ngValue]="null">Tous</option>
-        <option value="true">Disponible</option>
-        <option value="false">Indisponible</option>
-      </select>
-    </div>
+    <form [formGroup]="form" (ngSubmit)="onSearch()" class="row g-2 align-items-end">
 
-    <div class="col-md-2">
-      <label class="form-label">Trier par</label>
-      <select class="form-select" formControlName="sort">
-        <option value="title">Titre</option>
-        <option value="author">Auteur</option>
-      </select>
-    </div>
+      <div class="col-12 col-md-3">
+        <label class="form-label">Rechercher</label>
+        <input class="form-control" formControlName="query"
+              placeholder="Titre, auteur, ISBN...">
+      </div>
 
-    <div class="col-md-1 d-flex gap-2">
-      <button type="submit" class="btn btn-primary">Rechercher</button>
-      <button type="button" class="btn btn-outline-secondary" (click)="onReset()">✕</button>
-    </div>
+      <div class="col-12 col-md-2">
+        <label class="form-label">Catégorie</label>
+        <select class="form-select" formControlName="categoryId">
+          <option [ngValue]="null">Toutes</option>
+          @for (cat of categories; track cat.id) {
+            <option [ngValue]="cat.id">{{ cat.libelle }}</option>
+          }
+        </select>
+      </div>
 
-  </form>
-</div>
+      <div class="col-12 col-md-2">
+        <label class="form-label">Disponibilité</label>
+        <select class="form-select" formControlName="available">
+          <option [ngValue]="null">Tous</option>
+          <option value="true">Disponible</option>
+          <option value="false">Indisponible</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-2">
+        <label class="form-label">Trier par</label>
+        <select class="form-select" formControlName="sort">
+          <option value="title">Titre</option>
+          <option value="author">Auteur</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-2 d-flex flex-row flex-md-row gap-2">
+        <button type="submit" class="btn btn-light flex-fill">Rechercher</button>
+        <button type="button" class="btn btn-light flex-fill" (click)="onReset()" title="Réinitialiser la recherche">✕</button>
+      </div>
+      
+    </form>
+  </div>
+  </div>
