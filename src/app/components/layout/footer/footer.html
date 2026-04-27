@@ -1,3 +1,14 @@
 <footer class="footer">
-  <p>© 2026 BookHub - Tous droits réservés</p>
+  <p>&copy; 2026 BookHub</p>
+
+  <a href="#" (click)="openPrivacyPolicy(); $event.preventDefault()">
+    Politique de confidentialité
+  </a>
 </footer>
+
+<div class="privacy-overlay" *ngIf="isPrivacyOpen">
+  <div class="privacy-modal">
+    <button type="button" (click)="closePrivacyPolicy()">✕</button>
+    <markdown [data]="markdown"></markdown>
+  </div>
+</div>
