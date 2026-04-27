@@ -13,7 +13,7 @@
   
     @if (isLoggedIn && !hasOwnReview && !showForm) {
       <button class="btn btn-outline-primary btn-sm mb-3" (click)="showForm = true">
-        ✍️ Laisser un avis
+        <mat-icon style="margin-bottom: -5;">edit</mat-icon> Laisser un avis
       </button>
     }
   
@@ -81,10 +81,10 @@
           </div>
   
           @if (review.owner) {
-            <button class="btn btn-sm btn-outline-primary" (click)="startEdit(review)">✏️</button>
+            <button class="btn btn-sm btn-outline-primary" (click)="startEdit(review)"><mat-icon>edit</mat-icon></button>
           }
           @if (review.canDelete) {
-            <button class="btn btn-sm btn-outline-danger" (click)="delete(review)">🗑️</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="delete(review)"><mat-icon>delete</mat-icon></button>
           }
         </div>
       </div>
