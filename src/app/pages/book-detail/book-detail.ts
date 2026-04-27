@@ -15,10 +15,11 @@ import { LoanReturnComponent } from '../../components/loan-return/loan-return';
 import { ReservationButtonComponent } from '../../components/reservation-button/reservation-button';
 import { ReservationResponse } from '../../interfaces/reservation';
 import { NgClass } from '@angular/common';
+import { ReviewSectionComponent } from '../../components/review-section/review-section';
 
 @Component({
   selector: 'app-book-detail',
-  imports: [LoanReturnComponent, NgClass, ReservationButtonComponent, MatCardModule, MatChipsModule, MatButtonModule, MatDividerModule, MatDialogModule, LoanFormComponent],
+  imports: [LoanReturnComponent, ReviewSectionComponent, NgClass, ReservationButtonComponent, MatCardModule, MatChipsModule, MatButtonModule, MatDividerModule, MatDialogModule, LoanFormComponent],
   templateUrl: './book-detail.html',
   styleUrl: './book-detail.css',
 })
