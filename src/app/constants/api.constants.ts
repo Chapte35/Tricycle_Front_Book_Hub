@@ -27,6 +27,7 @@ export const API_ROUTES = {
     create: (bookId: number) => `${API_BASE_URL}/api/reservations/book/${bookId}`,
     getMy: `${API_BASE_URL}/api/reservations/my`,
     delete: (id: number) => `${API_BASE_URL}/api/reservations/${id}`,
+    getActiveByBook: (bookId: number) => `${API_BASE_URL}/api/reservations/active/book/${bookId}`,
   },
   ratings: {
     create: (bookId: number) => `${API_BASE_URL}/api/books/${bookId}/ratings`,

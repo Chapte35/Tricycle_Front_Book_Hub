@@ -1,0 +1,43 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Mes réservations ({{ reservations.length }}/5)</h2>
+  
+    @if (errorMessage) {
+      <div class="alert alert-danger">{{ errorMessage }}</div>
+    }
+  
+    @if (reservations.length === 0) {
+      <p class="text-muted">Vous n'avez aucune réservation en cours.</p>
+    }
+  
+    <div class="row">
+      @for (reservation of reservations; track reservation.id) {
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow-sm h-100">
+            <img [src]="reservation.bookCover"
+                 [alt]="reservation.bookTitle"
+                 class="card-img-top"
+                 style="height: 200px; object-fit: cover;">
+  
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ reservation.bookTitle }}</h5>
+  
+              <p class="card-text">
+                <small class="text-muted">
+                  Réservé le {{ reservation.reservationDate | date:'dd/MM/yyyy' }}
+                </small>
+              </p>
+  
+              <span class="state-badge mb-3" [ngClass]="getBadgeClass(reservation.bookState)">
+                {{ getStateLabel(reservation.bookState) }}
+              </span>
+  
+              <button class="btn btn-outline-danger btn-sm mt-auto"
+                      (click)="cancel(reservation.id)">
+                Annuler la réservation
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>

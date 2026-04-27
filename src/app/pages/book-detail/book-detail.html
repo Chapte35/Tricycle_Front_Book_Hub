@@ -24,8 +24,8 @@
       }
 
       @if (authService.isAdmin()) {
-        @if (book.state === Etat.EMPRUNTABLE) {
-          <app-loan-form [bookId]="book.id" (loanCreated)="onLoanCreated($event)" />
+        @if (book.state === Etat.EMPRUNTABLE || book.state === Etat.RESERVE) {
+          <app-loan-form [bookId]="book.id" [bookState]="book.state" (loanCreated)="onLoanCreated($event)" />
         } @else if (book.state === Etat.EMPRUNTE || book.state === Etat.RETARD) {
           <app-loan-return [bookId]="book.id" (loanReturned)="onLoanReturned()" />
         }
