@@ -2,11 +2,12 @@ import { Component, Output, Input, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { API_ROUTES } from '../../constants/api.constants';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-image-upload',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './image-upload.html',
 })
 export class ImageUploadComponent {

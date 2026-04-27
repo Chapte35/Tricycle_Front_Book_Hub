@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReservationService } from '../../services/reservation-service';
 import { ReservationResponse } from '../../interfaces/reservation';
 import { Etat } from '../../enums/etat';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-my-reservations',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './my-reservations.html',
 })
 export class MyReservationsComponent implements OnInit {
@@ -46,16 +47,5 @@ export class MyReservationsComponent implements OnInit {
       [Etat.INDISPONIBLE]: 'badge-grey',
     };
     return classes[state] ?? '';
-  }
-
-  getStateLabel(state: Etat): string {
-    const labels: Record<Etat, string> = {
-      [Etat.EMPRUNTABLE]:  '✅ Disponible — vous pouvez venir le chercher !',
-      [Etat.EMPRUNTE]:     '📖 Actuellement emprunté',
-      [Etat.RESERVE]:      '🔔 Réservé',
-      [Etat.RETARD]:       '⚠️ En retard de retour',
-      [Etat.INDISPONIBLE]: '❌ Indisponible',
-    };
-    return labels[state];
   }
 }

@@ -5,11 +5,12 @@ import { ReviewService } from '../../services/review-service';
 import { AuthService } from '../../services/auth-service';
 import { ReviewResponse } from '../../interfaces/review';
 import { MatDivider } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-review-section',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDivider],
+  imports: [CommonModule, ReactiveFormsModule, MatDivider, MatIconModule],
   templateUrl: './review-section.html',
 })
 export class ReviewSectionComponent implements OnInit {
