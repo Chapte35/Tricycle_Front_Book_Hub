@@ -10,17 +10,10 @@ import { AuthService } from '../../../services/auth-service';
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './auth-form.html',
 })
 export class AuthFormComponent implements OnInit {
-
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
 
@@ -29,6 +22,7 @@ export class AuthFormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<any>();
 
   form!: FormGroup;
+  formError: string | null = null;
 
   ngOnInit() {
     this.buildForm();
@@ -42,7 +36,7 @@ export class AuthFormComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', Validators.required],
-        phone: ['']
+        phone: [''],
       });
     } else {
       this.form = this.fb.group({
@@ -53,8 +47,19 @@ export class AuthFormComponent implements OnInit {
   }
 
   submit() {
+    console.log('SUBMIT CLICKED');
+    // RESET
+    this.formError = null;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+
+      if (this.form.get('email')?.invalid) {
+        this.formError = 'Email invalide.';
+      } else if (this.form.get('password')?.invalid) {
+        this.formError = 'Mot de passe invalide (8 caractères minimum).';
+      } else {
+        this.formError = 'Veuillez corriger le formulaire.';
+      }
       return;
     }
 
@@ -64,9 +69,10 @@ export class AuthFormComponent implements OnInit {
         this.form.get('confirmPassword')?.setErrors({ mismatch: true });
         return;
       }
+      console.log('FORM VALUE', this.form.value);
     }
+    console.log('FORM VALID → EMIT');
 
     this.formSubmit.emit(this.form.value);
   }
-
 }

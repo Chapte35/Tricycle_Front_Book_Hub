@@ -30,8 +30,11 @@
       <input type="password" class="form-control" id="password"
              formControlName="password" placeholder="••••••••">
     </div>
-    @if (errorMessage){
-      <div class="error"> {{errorMessage}}</div>
+
+    @if (formError){
+      <div class="alert alert-danger mt-3"> 
+        {{formError}} 
+      </div>
     }
     
 
@@ -53,10 +56,10 @@
       </div>
     }
 
-    <small class="text-danger d-block mb-3"
+    <!-- <small class="text-danger d-block mb-3"
            *ngIf="form.invalid && form.touched">
       Veuillez corriger le formulaire.
-    </small>
+    </small> -->
 
     <button type="submit" class="btn btn-primary btn-block mt-3">
       {{ mode === 'register' ? "S'inscrire" : "Se connecter" }}
