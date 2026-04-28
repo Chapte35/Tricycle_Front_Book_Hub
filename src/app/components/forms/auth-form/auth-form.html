@@ -11,12 +11,20 @@
         <input type="text" class="form-control" id="firstName"
                formControlName="firstName" placeholder="Votre prénom">
       </div>
+      <small class="text-danger"
+      *ngIf="form.get('firstName')?.touched && form.get('firstName')?.hasError('required')">
+      Prénom obligatoire
+      </small>
 
       <div class="form-group">
         <label for="lastName">Nom</label>
         <input type="text" class="form-control" id="lastName"
                formControlName="lastName" placeholder="Votre nom">
       </div>
+      <small class="text-danger"
+      *ngIf="form.get('lastName')?.touched && form.get('lastName')?.hasError('required')">
+      Nom obligatoire
+      </small>
     }
 
     <div class="form-group">
@@ -24,12 +32,23 @@
       <input type="email" class="form-control" id="email"
              formControlName="email" placeholder="email@example.com">
     </div>
+      <small class="text-danger"
+      *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
+      Adresse mail obligatoire
+      </small>
 
     <div class="form-group">
       <label for="password">Mot de passe</label>
       <input type="password" class="form-control" id="password"
              formControlName="password" placeholder="••••••••">
     </div>
+
+    @if (formError){
+      <div class="alert alert-danger mt-3"> 
+        {{formError}} 
+      </div>
+    }
+    
 
     @if (mode === 'register') {
       <div class="form-group">
@@ -48,11 +67,6 @@
                formControlName="phone" placeholder="06 00 00 00 00">
       </div>
     }
-
-    <small class="text-danger d-block mb-3"
-           *ngIf="form.invalid && form.touched">
-      Veuillez corriger le formulaire.
-    </small>
 
     <button type="submit" class="btn btn-primary btn-block mt-3">
       {{ mode === 'register' ? "S'inscrire" : "Se connecter" }}
