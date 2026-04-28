@@ -27,8 +27,12 @@
                 </small>
               </p>
   
-              <span class="state-badge mb-3" [ngClass]="getBadgeClass(reservation.bookState)">
+              <span class="state-badge mb-3">
                 <mat-icon style="margin-bottom: -5;">notifications</mat-icon> Réservé
+              </span>
+
+              <span [ngClass]="getBadgeClass(reservation.bookState)" class="mb-3">
+                {{ getStateLabel(reservation.bookState) }}
               </span>
   
               <button class="btn btn-outline-danger btn-sm mt-auto"

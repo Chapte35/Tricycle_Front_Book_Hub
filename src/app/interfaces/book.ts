@@ -11,6 +11,7 @@ export interface Book {
   isAvailable: boolean;
   state: Etat;
   category: Category;
+  isReserved: boolean;
 }
 
 export interface BookFormData {

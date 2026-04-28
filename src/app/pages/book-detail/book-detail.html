@@ -38,10 +38,12 @@
       }
 
       @if (authService.isLoggedIn() && !authService.isAdmin()) {
-        @if (book.state === Etat.EMPRUNTABLE) {
-          <p class="text-muted">Ce livre est disponible, demandez à un bibliothécaire de vous le prêter.</p>
-        } @else if (book.state === Etat.EMPRUNTE || book.state === Etat.RETARD) {
-          <app-reservation-button [bookId]="book.id" (reserved)="onReserved($event)" />
+        @if (book.state === Etat.EMPRUNTE || book.state === Etat.EMPRUNTABLE || book.state === Etat.RETARD) {
+          @if (!book.isReserved) {
+            <app-reservation-button [bookId]="book.id" (reserved)="onReserved($event)" />
+          } @else {
+            <p class="text-warning">Ce livre est déjà réservé par un autre lecteur.</p>
+          }
         } @else if (book.state === Etat.RESERVE) {
           <p class="text-warning">Ce livre est déjà réservé.</p>
         } @else if (book.state === Etat.INDISPONIBLE) {

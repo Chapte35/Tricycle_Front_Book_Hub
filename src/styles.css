@@ -1,3 +1,16 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.badge-green, .badge-blue, .badge-yellow, .badge-red, .badge-grey {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+  }
+  
+  .badge-green  { background-color: #e6f4ea; color: #2e7d32; }
+  .badge-blue   { background-color: #e3f2fd; color: #1565c0; }
+  .badge-yellow { background-color: #fff8e1; color: #f57f17; }
+  .badge-red    { background-color: #fdecea; color: #c62828; }
+  .badge-grey   { background-color: #f5f5f5; color: #616161; }
