@@ -57,8 +57,6 @@ export class AuthFormComponent implements OnInit {
         this.formError = 'Email invalide.';
       } else if (this.form.get('password')?.invalid) {
         this.formError = 'Mot de passe invalide (8 caractères minimum).';
-      } else {
-        this.formError = 'Veuillez corriger le formulaire.';
       }
       return;
     }
@@ -71,8 +69,6 @@ export class AuthFormComponent implements OnInit {
       }
       console.log('FORM VALUE', this.form.value);
     }
-    console.log('FORM VALID → EMIT');
-
     this.formSubmit.emit(this.form.value);
   }
 }

@@ -11,12 +11,20 @@
         <input type="text" class="form-control" id="firstName"
                formControlName="firstName" placeholder="Votre prénom">
       </div>
+      <small class="text-danger"
+      *ngIf="form.get('firstName')?.touched && form.get('firstName')?.hasError('required')">
+      Prénom obligatoire
+      </small>
 
       <div class="form-group">
         <label for="lastName">Nom</label>
         <input type="text" class="form-control" id="lastName"
                formControlName="lastName" placeholder="Votre nom">
       </div>
+      <small class="text-danger"
+      *ngIf="form.get('lastName')?.touched && form.get('lastName')?.hasError('required')">
+      Nom obligatoire
+      </small>
     }
 
     <div class="form-group">
