@@ -1,9 +1,11 @@
+import { ErrorMessages } from './../../../../../node_modules/zod-to-json-schema/dist/types/errorMessages.d';
 import { Component, EventEmitter, Input, Output, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-auth-form',
@@ -20,8 +22,10 @@ import { MatButtonModule } from '@angular/material/button';
 export class AuthFormComponent implements OnInit {
 
   private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
 
   @Input() mode: 'register' | 'login' = 'register';
+  @Input() errorMessage: string | null = null;
   @Output() formSubmit = new EventEmitter<any>();
 
   form!: FormGroup;
@@ -64,4 +68,5 @@ export class AuthFormComponent implements OnInit {
 
     this.formSubmit.emit(this.form.value);
   }
+
 }

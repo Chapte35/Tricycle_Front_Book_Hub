@@ -30,6 +30,10 @@
       <input type="password" class="form-control" id="password"
              formControlName="password" placeholder="••••••••">
     </div>
+    @if (errorMessage){
+      <div class="error"> {{errorMessage}}</div>
+    }
+    
 
     @if (mode === 'register') {
       <div class="form-group">

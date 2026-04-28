@@ -12,6 +12,7 @@ import { AuthService, LoginRequest } from '../../services/auth-service';
 export class LoginComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
+  errorMessage : string= '';
 
   onLogin(data: LoginRequest) {
     this.authService.login(data).subscribe({
@@ -20,7 +21,8 @@ export class LoginComponent {
         this.authService.saveUser(response);
         this.router.navigate(['/']);
       },
-      error: (err: Error) => console.error('Erreur login', err)
+      error: (err: Error) => 
+        this.errorMessage = err.message
     });
   }
 }
