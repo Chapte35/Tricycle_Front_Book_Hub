@@ -18,6 +18,12 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
 
+          @if (isLoggedIn) {
+          <li class="nav-item">
+            <span class="nav-link">Bonjour {{ username }} !</span>
+          </li>
+        }
+
         <li class="nav-item">
           <a class="nav-link" routerLink="/" routerLinkActive="nav-active"
              [routerLinkActiveOptions]="{exact: true}">Nos livres</a>

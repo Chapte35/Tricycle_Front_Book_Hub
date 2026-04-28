@@ -25,6 +25,10 @@ export class HeaderComponent {
   get isAdmin(): boolean {
     return this.authService.isAdmin();
   }
+  get username(): string | null {
+    const user = this.authService.getUser();
+    return user ? `${user.firstName}` : null;
+  }
 
   logout() {
     this.authService.logout();
