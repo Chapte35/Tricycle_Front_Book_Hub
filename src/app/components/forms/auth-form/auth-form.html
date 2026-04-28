@@ -32,6 +32,10 @@
       <input type="email" class="form-control" id="email"
              formControlName="email" placeholder="email@example.com">
     </div>
+      <small class="text-danger"
+      *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
+      Adresse mail obligatoire
+      </small>
 
     <div class="form-group">
       <label for="password">Mot de passe</label>
@@ -63,11 +67,6 @@
                formControlName="phone" placeholder="06 00 00 00 00">
       </div>
     }
-
-    <!-- <small class="text-danger d-block mb-3"
-           *ngIf="form.invalid && form.touched">
-      Veuillez corriger le formulaire.
-    </small> -->
 
     <button type="submit" class="btn btn-primary btn-block mt-3">
       {{ mode === 'register' ? "S'inscrire" : "Se connecter" }}
