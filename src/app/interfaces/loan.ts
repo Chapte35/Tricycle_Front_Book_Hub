@@ -7,7 +7,7 @@ export interface Loan {
   loanDate: Date;
   returnDate?: Date;
   status: Statut;
-  books: Book;
+  books: Book | null;
   user: User;
 }
 

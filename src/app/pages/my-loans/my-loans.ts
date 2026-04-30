@@ -39,16 +39,17 @@ export class Myloans implements OnInit {
 get filteredLoans(): Loan[] {   
   if (!this.sortColumn) return this.loans;   
   return [...this.loans].sort((a, b) => {     
-    const getVal = (loan: Loan): string => {       
-      if (this.sortColumn === 'title') 
-        return loan.books.title ?? '';       
-      if (this.sortColumn === 'author') 
-        return `${loan.user.firstName} ${loan.user.lastName}`;       
-      if (this.sortColumn === 'loanDate') 
-        return loan.loanDate?.toString() ?? '';       
-      if (this.sortColumn === 'returnDate') 
-        return loan.returnDate?.toString() ?? '';       
-      return '';     };     
+    const getVal = (loan: Loan): string => {
+      if (this.sortColumn === 'title')
+        return loan.books?.title ?? '';
+      if (this.sortColumn === 'author')
+        return `${loan.user.firstName} ${loan.user.lastName}`;
+      if (this.sortColumn === 'loanDate')
+        return loan.loanDate?.toString() ?? '';
+      if (this.sortColumn === 'returnDate')
+        return loan.returnDate?.toString() ?? '';
+      return '';
+    };   
       return this.sortDirection === 'asc'       
       ? getVal(a).localeCompare(getVal(b))       
       : getVal(b).localeCompare(getVal(a));   
