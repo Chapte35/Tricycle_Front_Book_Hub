@@ -42,7 +42,7 @@
           @if (!book.isReserved) {
             <app-reservation-button [bookId]="book.id" (reserved)="onReserved($event)" />
           } @else {
-            <p class="text-warning">Ce livre est déjà réservé par un autre lecteur.</p>
+            <p class="text-warning">Ce livre est déjà réservé.</p>
           }
         } @else if (book.state === Etat.RESERVE) {
           <p class="text-warning">Ce livre est déjà réservé.</p>

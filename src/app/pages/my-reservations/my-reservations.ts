@@ -42,7 +42,7 @@ export class MyReservationsComponent implements OnInit {
     const classes: Partial<Record<Etat, string>> = {
       [Etat.EMPRUNTABLE]:  'badge-green',
       [Etat.EMPRUNTE]:     'badge-blue',
-      [Etat.RESERVE]:      'badge-yellow',
+      [Etat.RESERVE]:      'badge-green',
       [Etat.RETARD]:       'badge-red',
       [Etat.INDISPONIBLE]: 'badge-grey',
     };
@@ -53,7 +53,7 @@ export class MyReservationsComponent implements OnInit {
     const labels: Record<Etat, string> = {
       [Etat.EMPRUNTABLE]:  'Disponible — venez le chercher !',
       [Etat.EMPRUNTE]:     'En cours d\'emprunt',
-      [Etat.RESERVE]:      'Réservé par quelqu\'un d\'autre',
+      [Etat.RESERVE]:      'Disponible — venez le chercher !',
       [Etat.RETARD]:       'En retard de retour',
       [Etat.INDISPONIBLE]: 'Indisponible',
     };
